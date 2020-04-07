@@ -1,0 +1,32 @@
+[
+    {
+        "currencyName": "Dolares",
+        "iso": "USD",
+        "symbol": "$",
+        "sellRate": 1,
+        "buyRate": 1
+    },
+    {
+        "currencyName": "Soles",
+        "iso": "PEN",
+        "symbol": "S/",
+        "sellRate": 2,
+        "buyRate": 3
+    },
+    {
+        "currencyName": "EURO",
+        "iso": "EUR",
+        "symbol": "€",
+        "sellRate": 4,
+        "buyRate": 5
+    },
+    {
+        "currencyName": "YEN",
+        "iso": "YEN",
+        "symbol": "¥",
+        "sellRate": 6,
+        "buyRate": 7
+    }
+]
+
+

@@ -8,15 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		8AA6FA2B243BE8C9001CC640 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA6FA2A243BE8C9001CC640 /* AppDelegate.swift */; };
-		8AA6FA2D243BE8C9001CC640 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA6FA2C243BE8C9001CC640 /* SceneDelegate.swift */; };
-		8AA6FA2F243BE8C9001CC640 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA6FA2E243BE8C9001CC640 /* ViewController.swift */; };
-		8AA6FA32243BE8C9001CC640 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AA6FA30243BE8C9001CC640 /* Main.storyboard */; };
 		8AA6FA34243BE8CC001CC640 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA6FA33243BE8CC001CC640 /* Assets.xcassets */; };
 		8AA6FA37243BE8CC001CC640 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AA6FA35243BE8CC001CC640 /* LaunchScreen.storyboard */; };
 		8AA6FA42243BE8CC001CC640 /* testTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA6FA41243BE8CC001CC640 /* testTests.swift */; };
 		8AA6FA4D243BE8CC001CC640 /* testUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA6FA4C243BE8CC001CC640 /* testUITests.swift */; };
 		8AD32A9F243C23FE001CD087 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD32A9E243C23FD001CD087 /* Realm.framework */; };
 		8AD32AA0243C23FE001CD087 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD32A9E243C23FD001CD087 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8AD32AA9243C2C44001CD087 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AA8243C2C44001CD087 /* UIView.swift */; };
+		8AD32AAB243C2C4D001CD087 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AAA243C2C4D001CD087 /* UIFont.swift */; };
+		8AD32AAD243C2C97001CD087 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AAC243C2C97001CD087 /* UIViewController.swift */; };
+		8AD32AAF243C2CBC001CD087 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AAE243C2CBC001CD087 /* UIColor.swift */; };
+		8AD32AB8243C2E86001CD087 /* TransactionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AB2243C2E86001CD087 /* TransactionPresenter.swift */; };
+		8AD32AB9243C2E86001CD087 /* TransactionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AB3243C2E86001CD087 /* TransactionWorker.swift */; };
+		8AD32ABA243C2E86001CD087 /* TransactionRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AB4243C2E86001CD087 /* TransactionRouter.swift */; };
+		8AD32ABB243C2E86001CD087 /* TransactionModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AB5243C2E86001CD087 /* TransactionModels.swift */; };
+		8AD32ABC243C2E86001CD087 /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AB6243C2E86001CD087 /* TransactionViewController.swift */; };
+		8AD32ABD243C2E86001CD087 /* TransactionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AB7243C2E86001CD087 /* TransactionInteractor.swift */; };
+		8AD32AC1243C3889001CD087 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AC0243C3889001CD087 /* TransactionView.swift */; };
+		8AD32AC3243C39C8001CD087 /* TransactionOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AC2243C39C8001CD087 /* TransactionOptionView.swift */; };
+		8AD32AC5243C598E001CD087 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AC4243C598E001CD087 /* Currency.swift */; };
+		8AD32AC8243C6F90001CD087 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AC7243C6F90001CD087 /* Double.swift */; };
+		8AD32AC9243C7B68001CD087 /* moneydata.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AD32AC6243C629B001CD087 /* moneydata.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,9 +65,6 @@
 /* Begin PBXFileReference section */
 		8AA6FA27243BE8C9001CC640 /* test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AA6FA2A243BE8C9001CC640 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8AA6FA2C243BE8C9001CC640 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		8AA6FA2E243BE8C9001CC640 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		8AA6FA31243BE8C9001CC640 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8AA6FA33243BE8CC001CC640 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8AA6FA36243BE8CC001CC640 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8AA6FA38243BE8CC001CC640 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -66,6 +75,21 @@
 		8AA6FA4C243BE8CC001CC640 /* testUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testUITests.swift; sourceTree = "<group>"; };
 		8AA6FA4E243BE8CC001CC640 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AD32A9E243C23FD001CD087 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
+		8AD32AA8243C2C44001CD087 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		8AD32AAA243C2C4D001CD087 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
+		8AD32AAC243C2C97001CD087 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		8AD32AAE243C2CBC001CD087 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		8AD32AB2243C2E86001CD087 /* TransactionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionPresenter.swift; sourceTree = "<group>"; };
+		8AD32AB3243C2E86001CD087 /* TransactionWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionWorker.swift; sourceTree = "<group>"; };
+		8AD32AB4243C2E86001CD087 /* TransactionRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRouter.swift; sourceTree = "<group>"; };
+		8AD32AB5243C2E86001CD087 /* TransactionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModels.swift; sourceTree = "<group>"; };
+		8AD32AB6243C2E86001CD087 /* TransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
+		8AD32AB7243C2E86001CD087 /* TransactionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionInteractor.swift; sourceTree = "<group>"; };
+		8AD32AC0243C3889001CD087 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
+		8AD32AC2243C39C8001CD087 /* TransactionOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionOptionView.swift; sourceTree = "<group>"; };
+		8AD32AC4243C598E001CD087 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		8AD32AC6243C629B001CD087 /* moneydata.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = moneydata.json; sourceTree = "<group>"; };
+		8AD32AC7243C6F90001CD087 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,10 +142,10 @@
 		8AA6FA29243BE8C9001CC640 /* test */ = {
 			isa = PBXGroup;
 			children = (
+				8AD32AB0243C2E3C001CD087 /* Modules */,
+				8AD32AA4243C2BF0001CD087 /* Resource */,
+				8AD32AA3243C2BBC001CD087 /* Models */,
 				8AA6FA2A243BE8C9001CC640 /* AppDelegate.swift */,
-				8AA6FA2C243BE8C9001CC640 /* SceneDelegate.swift */,
-				8AA6FA2E243BE8C9001CC640 /* ViewController.swift */,
-				8AA6FA30243BE8C9001CC640 /* Main.storyboard */,
 				8AA6FA33243BE8CC001CC640 /* Assets.xcassets */,
 				8AA6FA35243BE8CC001CC640 /* LaunchScreen.storyboard */,
 				8AA6FA38243BE8CC001CC640 /* Info.plist */,
@@ -153,6 +177,66 @@
 				8AD32A9E243C23FD001CD087 /* Realm.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8AD32AA3243C2BBC001CD087 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8AD32AC4243C598E001CD087 /* Currency.swift */,
+				8AD32AC6243C629B001CD087 /* moneydata.json */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8AD32AA4243C2BF0001CD087 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				8AD32AA5243C2C14001CD087 /* Extensions */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		8AD32AA5243C2C14001CD087 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8AD32AA8243C2C44001CD087 /* UIView.swift */,
+				8AD32AAA243C2C4D001CD087 /* UIFont.swift */,
+				8AD32AAC243C2C97001CD087 /* UIViewController.swift */,
+				8AD32AAE243C2CBC001CD087 /* UIColor.swift */,
+				8AD32AC7243C6F90001CD087 /* Double.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		8AD32AB0243C2E3C001CD087 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				8AD32AB1243C2E57001CD087 /* Transaction */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		8AD32AB1243C2E57001CD087 /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				8AD32ABF243C3857001CD087 /* Views */,
+				8AD32AB2243C2E86001CD087 /* TransactionPresenter.swift */,
+				8AD32AB3243C2E86001CD087 /* TransactionWorker.swift */,
+				8AD32AB4243C2E86001CD087 /* TransactionRouter.swift */,
+				8AD32AB5243C2E86001CD087 /* TransactionModels.swift */,
+				8AD32AB6243C2E86001CD087 /* TransactionViewController.swift */,
+				8AD32AB7243C2E86001CD087 /* TransactionInteractor.swift */,
+			);
+			path = Transaction;
+			sourceTree = "<group>";
+		};
+		8AD32ABF243C3857001CD087 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8AD32AC0243C3889001CD087 /* TransactionView.swift */,
+				8AD32AC2243C39C8001CD087 /* TransactionOptionView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,9 +345,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AD32AC9243C7B68001CD087 /* moneydata.json in Resources */,
 				8AA6FA37243BE8CC001CC640 /* LaunchScreen.storyboard in Resources */,
 				8AA6FA34243BE8CC001CC640 /* Assets.xcassets in Resources */,
-				8AA6FA32243BE8C9001CC640 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,9 +394,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8AA6FA2F243BE8C9001CC640 /* ViewController.swift in Sources */,
+				8AD32AA9243C2C44001CD087 /* UIView.swift in Sources */,
+				8AD32ABA243C2E86001CD087 /* TransactionRouter.swift in Sources */,
+				8AD32AC5243C598E001CD087 /* Currency.swift in Sources */,
+				8AD32AAF243C2CBC001CD087 /* UIColor.swift in Sources */,
+				8AD32AAB243C2C4D001CD087 /* UIFont.swift in Sources */,
+				8AD32AB8243C2E86001CD087 /* TransactionPresenter.swift in Sources */,
+				8AD32AC1243C3889001CD087 /* TransactionView.swift in Sources */,
+				8AD32ABC243C2E86001CD087 /* TransactionViewController.swift in Sources */,
+				8AD32AC3243C39C8001CD087 /* TransactionOptionView.swift in Sources */,
+				8AD32ABB243C2E86001CD087 /* TransactionModels.swift in Sources */,
+				8AD32AB9243C2E86001CD087 /* TransactionWorker.swift in Sources */,
 				8AA6FA2B243BE8C9001CC640 /* AppDelegate.swift in Sources */,
-				8AA6FA2D243BE8C9001CC640 /* SceneDelegate.swift in Sources */,
+				8AD32AAD243C2C97001CD087 /* UIViewController.swift in Sources */,
+				8AD32AC8243C6F90001CD087 /* Double.swift in Sources */,
+				8AD32ABD243C2E86001CD087 /* TransactionInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,14 +444,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		8AA6FA30243BE8C9001CC640 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8AA6FA31243BE8C9001CC640 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		8AA6FA35243BE8CC001CC640 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
