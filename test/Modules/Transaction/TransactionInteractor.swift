@@ -13,24 +13,29 @@
 import UIKit
 
 protocol TransactionBusinessLogic {
-    func loadCurrencies(request: Transaction.CurrencyLoad.Request)
+    func doLoadCurrencies(request: Transaction.CurrencyLoad.Request)
+    func docChangeAmount(request: Transaction.AmountChange.Request)
+    func doChangeCurrency(request: Transaction.CurrencyChange.Request)
 }
 
 protocol TransactionDataStore {
-    //var name: String { get set }
+    var currencies: [Currency] { get set }
+    var currencyToUpdate: Transaction.CurrencyChange.CurrencyOption? { get set }
 }
 
 class TransactionInteractor: TransactionBusinessLogic, TransactionDataStore {
+    
     var presenter: TransactionPresentationLogic?
     var worker: TransactionWorker? = TransactionWorker()
     var currencies = [Currency]()
+    var currencyToUpdate: Transaction.CurrencyChange.CurrencyOption?
     
     private let isoSoles = "PEN"
     private let isoDollar = "USD"
     private var source: Currency? = nil
     private var target: Currency? = nil
     
-    func loadCurrencies(request: Transaction.CurrencyLoad.Request) {
+    func doLoadCurrencies(request: Transaction.CurrencyLoad.Request) {
         worker?.doGetConversionRate(completionHandler: {[weak self] (data) in
             guard let data = data, let welf = self else {
                 //LLAMAR PRESENTER ERROR
@@ -56,5 +61,19 @@ class TransactionInteractor: TransactionBusinessLogic, TransactionDataStore {
         return currencies.first { (currency) -> Bool in
             return currency.iso == iso
         }
+    }
+    
+    func docChangeAmount(request: Transaction.AmountChange.Request) {
+        guard let target = target, let source = source, let currencyValue = request.amountValue else {
+            return
+        }
+        let dollarAmount = source.buyRate * currencyValue
+        let newAmount = target.sellRate * dollarAmount
+        let response = Transaction.AmountChange.Response(amountChanged: newAmount)
+        presenter?.presentAccountChanged(response: response)
+    }
+    
+    func doChangeCurrency(request: Transaction.CurrencyChange.Request) {
+        self.currencyToUpdate = request.option
     }
 }

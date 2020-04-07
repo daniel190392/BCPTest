@@ -1,6 +1,7 @@
 [
     {
         "currencyName": "Dolares",
+        "country": "EEUU",
         "iso": "USD",
         "symbol": "$",
         "sellRate": 1,
@@ -8,6 +9,7 @@
     },
     {
         "currencyName": "Soles",
+        "country": "Peru",
         "iso": "PEN",
         "symbol": "S/",
         "sellRate": 2,
@@ -15,6 +17,7 @@
     },
     {
         "currencyName": "EURO",
+        "country": "España",
         "iso": "EUR",
         "symbol": "€",
         "sellRate": 4,
@@ -22,7 +25,8 @@
     },
     {
         "currencyName": "YEN",
-        "iso": "YEN",
+        "country": "JAPON",
+        "iso": "JPY",
         "symbol": "¥",
         "sellRate": 6,
         "buyRate": 7

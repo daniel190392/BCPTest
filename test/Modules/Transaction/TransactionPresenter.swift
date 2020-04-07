@@ -15,6 +15,7 @@ import UIKit
 protocol TransactionPresentationLogic {
     func presentError(response: Transaction.Error.Response)
     func presentLoaded(response: Transaction.CurrencyLoad.Response)
+    func presentAccountChanged(response: Transaction.AmountChange.Response)
 }
 
 class TransactionPresenter: TransactionPresentationLogic {
@@ -38,7 +39,15 @@ class TransactionPresenter: TransactionPresentationLogic {
         let target = response.target
         let buyRate = source.buyRate.getMoneyValue(symbol: source.symbol)
         let sellRate = source.sellRate.getMoneyValue(symbol: source.symbol)
-        let viewModel = Transaction.CurrencyLoad.ViewModel(sourceSymbol: source.symbol, sourceName: source.currencyName, targetSymbol: target.symbol, targetName: target.currencyName, buyRate: buyRate, sellRate: sellRate)
+        let sourceInput = InputViewModel(optionType: .source, currencyName: source.currencyName, symbol: source.symbol)
+        let targetInput = InputViewModel(optionType: .target, currencyName: target.currencyName, symbol: target.symbol)
+        let transactionViewModel = TransactionViewModel(sourceInput: sourceInput, targetInput: targetInput, buyRate: buyRate, sellRate: sellRate)
+        let viewModel = Transaction.CurrencyLoad.ViewModel(transactionViewModel: transactionViewModel)
         viewController?.displayCurrencyLoaded(viewModel: viewModel)
+    }
+    
+    func presentAccountChanged(response: Transaction.AmountChange.Response) {
+        let viewModel = Transaction.AmountChange.ViewModel(amountChanged: response.amountChanged.getMoneyValue())
+        viewController?.displayAccountChanged(viewModel: viewModel)
     }
 }

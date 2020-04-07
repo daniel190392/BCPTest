@@ -8,33 +8,27 @@
 
 import UIKit
 
-enum TransactionOptionType {
-    case source
-    case target
-}
-
-struct TransactionOptionViewModel {
-    let optionType: TransactionOptionType
+struct InputViewModel {
+    let optionType: Transaction.CurrencyChange.CurrencyOption
     let currencyValue: Double = 0.0
     let currencyName: String
     let symbol: String
-    let delegate: TransactionOptionDelegate
 }
 
-protocol TransactionOptionDelegate {
-    func onMoneyChange(option: TransactionOptionType, currencyValue: Double)
-    func onClickButton(option: TransactionOptionType)
+protocol TransactionOptionDelegate: class {
+    func onAmountChange(amountValue: Double)
+    func onCurrencyUpdate(option: Transaction.CurrencyChange.CurrencyOption)
 }
 
-class TransactionOptionView: UIView {
+class InputView: UIView {
     
     private var labelTitle = UILabel()
-    private var textFieldMoney = UITextField()
+    private var textFieldAmount = UITextField()
     private var viewButton = UIView()
     private var labelButton = UILabel()
     
-    var viewModel: TransactionOptionViewModel?
-    var delegate: TransactionOptionDelegate?
+    var viewModel: InputViewModel?
+    weak var delegate: TransactionOptionDelegate?
     
     struct ViewTraits {
         static let mediumMargin: CGFloat = 16.0
@@ -60,11 +54,11 @@ class TransactionOptionView: UIView {
         labelTitle.numberOfLines = 0
         addSubViewWithLayout(view: labelTitle)
         
-        textFieldMoney.textColor = .black
-        textFieldMoney.font = UIFont.regular12
-        textFieldMoney.keyboardType = .decimalPad
-        textFieldMoney.delegate = self
-        addSubViewWithLayout(view: textFieldMoney)
+        textFieldAmount.textColor = .black
+        textFieldAmount.font = UIFont.regular12
+        textFieldAmount.keyboardType = .decimalPad
+        textFieldAmount.delegate = self
+        addSubViewWithLayout(view: textFieldAmount)
         
         viewButton.clipsToBounds = true
         viewButton.backgroundColor = .black
@@ -84,14 +78,14 @@ class TransactionOptionView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            textFieldMoney.leadingAnchor.constraint(equalTo: leadingAnchor, constant: ViewTraits.mediumMargin),
-            textFieldMoney.topAnchor.constraint(equalTo: labelTitle.bottomAnchor, constant: ViewTraits.minMargin),
-            textFieldMoney.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -ViewTraits.minMargin)
+            textFieldAmount.leadingAnchor.constraint(equalTo: leadingAnchor, constant: ViewTraits.mediumMargin),
+            textFieldAmount.topAnchor.constraint(equalTo: labelTitle.bottomAnchor, constant: ViewTraits.minMargin),
+            textFieldAmount.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -ViewTraits.minMargin)
         ])
         
         NSLayoutConstraint.activate([
             viewButton.leadingAnchor.constraint(equalTo: labelTitle.trailingAnchor, constant: ViewTraits.mediumMargin),
-            viewButton.leadingAnchor.constraint(equalTo: textFieldMoney.trailingAnchor, constant: ViewTraits.mediumMargin),
+            viewButton.leadingAnchor.constraint(equalTo: textFieldAmount.trailingAnchor, constant: ViewTraits.mediumMargin),
             viewButton.trailingAnchor.constraint(equalTo: trailingAnchor),
             viewButton.topAnchor.constraint(equalTo: topAnchor),
             viewButton.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -105,45 +99,55 @@ class TransactionOptionView: UIView {
         ])
     }
     
-    func setupView(viewModel: TransactionOptionViewModel) {
+    func setupView(viewModel: InputViewModel) {
         self.viewModel = viewModel
-        delegate = viewModel.delegate
         labelButton.text = viewModel.currencyName
         
         switch viewModel.optionType {
         case .source:
             labelTitle.text = ViewTraits.labelSource
-            if let text = textFieldMoney.text, text.isEmpty {
-                textFieldMoney.text = viewModel.currencyValue.getMoneyValue(symbol: viewModel.symbol)
+            if let text = textFieldAmount.text, text.isEmpty {
+                textFieldAmount.text = viewModel.currencyValue.getMoneyValue(symbol: viewModel.symbol)
             }
         case .target:
             labelTitle.text = ViewTraits.labelTarget
-            textFieldMoney.isEnabled = false
-            textFieldMoney.text = viewModel.currencyValue.getMoneyValue(symbol: viewModel.symbol)
+            textFieldAmount.isEnabled = false
+            textFieldAmount.text = viewModel.currencyValue.getMoneyValue(symbol: viewModel.symbol)
         }
     }
     
-    @objc private func onButtonClick() {
-        guard let delegate = delegate, let viewModel = viewModel else {
+    func updateCurrencyValue(currencyValue: String) {
+        textFieldAmount.text = currencyValue
+    }
+    
+    @objc private func onButtonClick(sender: UILongPressGestureRecognizer) {
+        guard let delegate = delegate, let viewModel = viewModel, sender.state == .began else {
             return
         }
-        delegate.onClickButton(option: viewModel.optionType)
+        delegate.onCurrencyUpdate(option: viewModel.optionType)
     }
 }
 
-extension TransactionOptionView: UITextFieldDelegate {
+extension InputView: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        guard let viewModel = viewModel, let delegate = delegate, let textShowed = textField.text else {
+        guard let viewModel = viewModel, let delegate = delegate, let text = textField.text,
+        let textRange = Range(range, in: text) else {
             return false
         }
         
-        var currencyValue = "\(textShowed) \(string)"
-        currencyValue = currencyValue.replacingOccurrences(of: viewModel.symbol, with: "").trimmingCharacters(in: .whitespaces)
-        if !currencyValue.isEmpty {
-            delegate.onMoneyChange(option: viewModel.optionType, currencyValue: Double(currencyValue) ?? 0)
+        let updatedText = text.replacingCharacters(in: textRange, with: string)
+        let currencyValue = updatedText.replacingOccurrences(of: viewModel.symbol, with: "").trimmingCharacters(in: .whitespaces)
+        if Double.getNumberFormatter().number(from: updatedText) != nil || updatedText.isEmpty {
+            delegate.onAmountChange(amountValue: Double(currencyValue) ?? 0)
             return true
         }
         return false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.text?.isEmpty == true {
+            textField.text = "0.00"
+        }
     }
 }

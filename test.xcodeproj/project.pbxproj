@@ -25,10 +25,17 @@
 		8AD32ABC243C2E86001CD087 /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AB6243C2E86001CD087 /* TransactionViewController.swift */; };
 		8AD32ABD243C2E86001CD087 /* TransactionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AB7243C2E86001CD087 /* TransactionInteractor.swift */; };
 		8AD32AC1243C3889001CD087 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AC0243C3889001CD087 /* TransactionView.swift */; };
-		8AD32AC3243C39C8001CD087 /* TransactionOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AC2243C39C8001CD087 /* TransactionOptionView.swift */; };
+		8AD32AC3243C39C8001CD087 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AC2243C39C8001CD087 /* InputView.swift */; };
 		8AD32AC5243C598E001CD087 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AC4243C598E001CD087 /* Currency.swift */; };
 		8AD32AC8243C6F90001CD087 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AC7243C6F90001CD087 /* Double.swift */; };
 		8AD32AC9243C7B68001CD087 /* moneydata.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AD32AC6243C629B001CD087 /* moneydata.json */; };
+		8AD32AD1243CA01A001CD087 /* CurrenciesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32ACB243CA01A001CD087 /* CurrenciesPresenter.swift */; };
+		8AD32AD3243CA01A001CD087 /* CurrenciesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32ACD243CA01A001CD087 /* CurrenciesRouter.swift */; };
+		8AD32AD4243CA01A001CD087 /* CurrenciesModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32ACE243CA01A001CD087 /* CurrenciesModels.swift */; };
+		8AD32AD5243CA01A001CD087 /* CurrenciesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32ACF243CA01A001CD087 /* CurrenciesViewController.swift */; };
+		8AD32AD6243CA01A001CD087 /* CurrenciesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AD0243CA01A001CD087 /* CurrenciesInteractor.swift */; };
+		8AD32AD9243CA05B001CD087 /* CurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AD8243CA05B001CD087 /* CurrencyTableViewCell.swift */; };
+		8AD32ADB243CA5FD001CD087 /* CurrenciesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32ADA243CA5FD001CD087 /* CurrenciesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,10 +93,17 @@
 		8AD32AB6243C2E86001CD087 /* TransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
 		8AD32AB7243C2E86001CD087 /* TransactionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionInteractor.swift; sourceTree = "<group>"; };
 		8AD32AC0243C3889001CD087 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
-		8AD32AC2243C39C8001CD087 /* TransactionOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionOptionView.swift; sourceTree = "<group>"; };
+		8AD32AC2243C39C8001CD087 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		8AD32AC4243C598E001CD087 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		8AD32AC6243C629B001CD087 /* moneydata.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = moneydata.json; sourceTree = "<group>"; };
 		8AD32AC7243C6F90001CD087 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		8AD32ACB243CA01A001CD087 /* CurrenciesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesPresenter.swift; sourceTree = "<group>"; };
+		8AD32ACD243CA01A001CD087 /* CurrenciesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesRouter.swift; sourceTree = "<group>"; };
+		8AD32ACE243CA01A001CD087 /* CurrenciesModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesModels.swift; sourceTree = "<group>"; };
+		8AD32ACF243CA01A001CD087 /* CurrenciesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesViewController.swift; sourceTree = "<group>"; };
+		8AD32AD0243CA01A001CD087 /* CurrenciesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesInteractor.swift; sourceTree = "<group>"; };
+		8AD32AD8243CA05B001CD087 /* CurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewCell.swift; sourceTree = "<group>"; };
+		8AD32ADA243CA5FD001CD087 /* CurrenciesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +225,7 @@
 		8AD32AB0243C2E3C001CD087 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				8AD32ACA243C9FFF001CD087 /* Currencies */,
 				8AD32AB1243C2E57001CD087 /* Transaction */,
 			);
 			path = Modules;
@@ -234,7 +249,29 @@
 			isa = PBXGroup;
 			children = (
 				8AD32AC0243C3889001CD087 /* TransactionView.swift */,
-				8AD32AC2243C39C8001CD087 /* TransactionOptionView.swift */,
+				8AD32AC2243C39C8001CD087 /* InputView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8AD32ACA243C9FFF001CD087 /* Currencies */ = {
+			isa = PBXGroup;
+			children = (
+				8AD32AD7243CA022001CD087 /* Views */,
+				8AD32ACB243CA01A001CD087 /* CurrenciesPresenter.swift */,
+				8AD32ACD243CA01A001CD087 /* CurrenciesRouter.swift */,
+				8AD32ACE243CA01A001CD087 /* CurrenciesModels.swift */,
+				8AD32ACF243CA01A001CD087 /* CurrenciesViewController.swift */,
+				8AD32AD0243CA01A001CD087 /* CurrenciesInteractor.swift */,
+			);
+			path = Currencies;
+			sourceTree = "<group>";
+		};
+		8AD32AD7243CA022001CD087 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8AD32AD8243CA05B001CD087 /* CurrencyTableViewCell.swift */,
+				8AD32ADA243CA5FD001CD087 /* CurrenciesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -397,18 +434,25 @@
 				8AD32AA9243C2C44001CD087 /* UIView.swift in Sources */,
 				8AD32ABA243C2E86001CD087 /* TransactionRouter.swift in Sources */,
 				8AD32AC5243C598E001CD087 /* Currency.swift in Sources */,
+				8AD32AD3243CA01A001CD087 /* CurrenciesRouter.swift in Sources */,
+				8AD32AD4243CA01A001CD087 /* CurrenciesModels.swift in Sources */,
 				8AD32AAF243C2CBC001CD087 /* UIColor.swift in Sources */,
 				8AD32AAB243C2C4D001CD087 /* UIFont.swift in Sources */,
 				8AD32AB8243C2E86001CD087 /* TransactionPresenter.swift in Sources */,
 				8AD32AC1243C3889001CD087 /* TransactionView.swift in Sources */,
 				8AD32ABC243C2E86001CD087 /* TransactionViewController.swift in Sources */,
-				8AD32AC3243C39C8001CD087 /* TransactionOptionView.swift in Sources */,
+				8AD32AC3243C39C8001CD087 /* InputView.swift in Sources */,
 				8AD32ABB243C2E86001CD087 /* TransactionModels.swift in Sources */,
 				8AD32AB9243C2E86001CD087 /* TransactionWorker.swift in Sources */,
+				8AD32ADB243CA5FD001CD087 /* CurrenciesView.swift in Sources */,
+				8AD32AD6243CA01A001CD087 /* CurrenciesInteractor.swift in Sources */,
 				8AA6FA2B243BE8C9001CC640 /* AppDelegate.swift in Sources */,
 				8AD32AAD243C2C97001CD087 /* UIViewController.swift in Sources */,
+				8AD32AD9243CA05B001CD087 /* CurrencyTableViewCell.swift in Sources */,
+				8AD32AD5243CA01A001CD087 /* CurrenciesViewController.swift in Sources */,
 				8AD32AC8243C6F90001CD087 /* Double.swift in Sources */,
 				8AD32ABD243C2E86001CD087 /* TransactionInteractor.swift in Sources */,
+				8AD32AD1243CA01A001CD087 /* CurrenciesPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

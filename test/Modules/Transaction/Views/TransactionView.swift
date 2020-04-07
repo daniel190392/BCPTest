@@ -8,9 +8,16 @@
 
 import UIKit
 
-protocol TransactionViewDelegate {
-    func onMoneyChange(option: TransactionOptionType, currencyValue: Double)
-    func onClickButton(option: TransactionOptionType)
+struct TransactionViewModel {
+    let sourceInput: InputViewModel
+    let targetInput: InputViewModel
+    let buyRate: String
+    let sellRate: String
+}
+
+protocol TransactionViewDelegate: class {
+    func onAmountChange(amountValue: Double)
+    func onCurrencyUpdate(option: Transaction.CurrencyChange.CurrencyOption)
 }
 
 class TransactionView: UIView {
@@ -18,13 +25,13 @@ class TransactionView: UIView {
     private var imageViewLogo = UIImageView()
     private var borderView = UIView()
     private var stackView = UIStackView()
-    private var sourceCurrency = TransactionOptionView()
-    private var targetCurrency = TransactionOptionView()
+    private var sourceInput = InputView()
+    private var targetInput = InputView()
     private var separatorView = UIView()
-    private var labelChange = UILabel()
+    private var labelCurrentRate = UILabel()
     private var buttonTransaction = UIButton()
     
-    var delegate: TransactionViewDelegate?
+    weak var delegate: TransactionViewDelegate?
     
     struct ViewTraits {
         static let horizontalMargin: CGFloat = 20.0
@@ -61,16 +68,19 @@ class TransactionView: UIView {
         stackView.spacing = 1
         borderView.addSubViewWithLayout(view: stackView)
         
-        stackView.addArrangedSubview(sourceCurrency)
-        stackView.addArrangedSubview(targetCurrency)
+        stackView.addArrangedSubview(sourceInput)
+        stackView.addArrangedSubview(targetInput)
+        
+        sourceInput.delegate = self
+        targetInput.delegate = self
         
         separatorView.backgroundColor = .b_gray
         borderView.addSubViewWithLayout(view: separatorView)
         
         
-        labelChange.textAlignment = .center
-        labelChange.font = UIFont.regular16
-        addSubViewWithLayout(view: labelChange)
+        labelCurrentRate.textAlignment = .center
+        labelCurrentRate.font = UIFont.regular16
+        addSubViewWithLayout(view: labelCurrentRate)
         
         buttonTransaction.setTitleColor(.b_white, for: .normal)
         buttonTransaction.backgroundColor = .b_darkBlue
@@ -107,9 +117,9 @@ class TransactionView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            labelChange.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            labelChange.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            labelChange.topAnchor.constraint(equalTo: borderView.bottomAnchor, constant: 24),
+            labelCurrentRate.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            labelCurrentRate.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            labelCurrentRate.topAnchor.constraint(equalTo: borderView.bottomAnchor, constant: 24),
         ])
         
         NSLayoutConstraint.activate([
@@ -120,27 +130,29 @@ class TransactionView: UIView {
         ])
     }
     
-    func setupView(viewModel: Transaction.CurrencyLoad.ViewModel) {
-        let optionOne = TransactionOptionViewModel(optionType: .source, currencyName: viewModel.sourceName, symbol: viewModel.sourceSymbol, delegate: self)
-        let optionTwo = TransactionOptionViewModel(optionType: .target, currencyName: viewModel.targetName, symbol: viewModel.targetSymbol, delegate: self)
-        sourceCurrency.setupView(viewModel: optionOne)
-        targetCurrency.setupView(viewModel: optionTwo)
-        labelChange.text = "Compra: \(viewModel.buyRate) | Venta: \(viewModel.sellRate)"
+    func setupView(viewModel: TransactionViewModel) {
+        sourceInput.setupView(viewModel: viewModel.sourceInput)
+        targetInput.setupView(viewModel: viewModel.targetInput)
+        labelCurrentRate.text = "Compra: \(viewModel.buyRate) | Venta: \(viewModel.sellRate)"
+    }
+    
+    func setCurrencyChanged(viewModel: Transaction.AmountChange.ViewModel) {
+        targetInput.updateCurrencyValue(currencyValue: viewModel.amountChanged)
     }
 }
 
 extension TransactionView: TransactionOptionDelegate {
-    func onMoneyChange(option: TransactionOptionType, currencyValue: Double) {
+    func onAmountChange(amountValue: Double) {
         guard let delegate = delegate else {
             return
         }
-        delegate.onMoneyChange(option: option, currencyValue: currencyValue)
+        delegate.onAmountChange(amountValue: amountValue)
     }
     
-    func onClickButton(option: TransactionOptionType) {
+    func onCurrencyUpdate(option: Transaction.CurrencyChange.CurrencyOption) {
         guard let delegate = delegate else {
             return
         }
-        delegate.onClickButton(option: option)
+        delegate.onCurrencyUpdate(option: option)
     }
 }

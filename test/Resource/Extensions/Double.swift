@@ -9,11 +9,19 @@
 import UIKit
 
 extension Double {
-    func getMoneyValue(symbol: String) -> String {
+    func getMoneyValue(symbol: String  = "") -> String {
+        let currencyFormatter = Double.getNumberFormatter()
+//        currencyFormatter.numberStyle = .currency
+//        currencyFormatter.currencySymbol = symbol
+        return currencyFormatter.string(from: NSNumber(value: self))!
+    }
+    
+    static func getNumberFormatter() -> NumberFormatter {
         let currencyFormatter = NumberFormatter()
         currencyFormatter.usesGroupingSeparator = true
-        currencyFormatter.numberStyle = .currency
-        currencyFormatter.currencySymbol = symbol
-        return currencyFormatter.string(from: NSNumber(value: self))!
+        currencyFormatter.numberStyle = .decimal
+        currencyFormatter.minimumFractionDigits = 2
+        currencyFormatter.maximumFractionDigits = 2
+        return currencyFormatter
     }
 }

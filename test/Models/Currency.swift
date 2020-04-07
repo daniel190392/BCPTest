@@ -10,6 +10,7 @@ import UIKit
 
 struct Currency: Codable {
     var currencyName: String
+    var country: String
     var iso: String
     var symbol: String
     var sellRate: Double

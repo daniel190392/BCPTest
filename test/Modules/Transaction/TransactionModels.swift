@@ -13,17 +13,6 @@
 import UIKit
 
 enum Transaction {
-    // MARK: Use cases
-    
-    enum Something {
-        struct Request {
-        }
-        struct Response {
-        }
-        struct ViewModel {
-        }
-    }
-    
     enum CurrencyLoad {
         struct Request {
         }
@@ -32,12 +21,30 @@ enum Transaction {
             let target: Currency
         }
         struct ViewModel {
-            let sourceSymbol: String
-            let sourceName: String
-            let targetSymbol: String
-            let targetName: String
-            let buyRate: String
-            let sellRate: String
+            let transactionViewModel: TransactionViewModel
+        }
+    }
+    
+    enum AmountChange {
+        struct Request {
+            let amountValue: Double?
+        }
+        struct Response {
+            let amountChanged: Double
+        }
+        struct ViewModel {
+            let amountChanged: String
+        }
+    }
+    
+    enum CurrencyChange {
+        enum CurrencyOption {
+            case source
+            case target
+        }
+        
+        struct Request {
+            let option: CurrencyOption
         }
     }
     
@@ -48,7 +55,6 @@ enum Transaction {
             case noLocalCurrency
             case notDollarCurrency
         }
-        
         struct Response {
             let errorType: ErrorType
         }

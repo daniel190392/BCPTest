@@ -13,8 +13,8 @@
 import UIKit
 
 protocol TransactionDisplayLogic: class {
-    func displaySomething(viewModel: Transaction.Something.ViewModel)
     func displayCurrencyLoaded(viewModel: Transaction.CurrencyLoad.ViewModel)
+    func displayAccountChanged(viewModel: Transaction.AmountChange.ViewModel)
 }
 
 class TransactionViewController: UIViewController, TransactionDisplayLogic {
@@ -65,6 +65,7 @@ class TransactionViewController: UIViewController, TransactionDisplayLogic {
     
     override func loadView() {
         view = transactionView
+        transactionView.delegate = self
         loadNavigationBar(title: "", hideNavigation: true)
     }
     
@@ -79,14 +80,28 @@ class TransactionViewController: UIViewController, TransactionDisplayLogic {
     
     func doLoadCurrencies() {
         let request = Transaction.CurrencyLoad.Request()
-        interactor?.loadCurrencies(request: request)
-    }
-    
-    func displaySomething(viewModel: Transaction.Something.ViewModel) {
-        //nameTextField.text = viewModel.name
+        interactor?.doLoadCurrencies(request: request)
     }
     
     func displayCurrencyLoaded(viewModel: Transaction.CurrencyLoad.ViewModel) {
-        transactionView.setupView(viewModel: viewModel)
+        transactionView.setupView(viewModel: viewModel.transactionViewModel)
+    }
+    
+    func displayAccountChanged(viewModel: Transaction.AmountChange.ViewModel) {
+        transactionView.setCurrencyChanged(viewModel: viewModel)
+    }
+}
+
+extension TransactionViewController: TransactionViewDelegate {
+    func onAmountChange(amountValue: Double) {
+//        let request = Transaction.CurrencyToChange.Request(currencyValue: currencyValue)
+        let request = Transaction.AmountChange.Request(amountValue: 11)
+        interactor?.docChangeAmount(request: request)
+    }
+    
+    func onCurrencyUpdate(option: Transaction.CurrencyChange.CurrencyOption) {
+        let request = Transaction.CurrencyChange.Request(option: option)
+        interactor?.doChangeCurrency(request: request)
+        router?.routeToCurrenciesView()
     }
 }
