@@ -34,4 +34,14 @@ enum Currencies {
             var currencies: [CurrencyViewModel]
         }
     }
+    
+    enum CurrencySelected {
+        struct Request {
+            var isoCurrency: String
+        }
+        struct Response {
+        }
+        struct ViewModel {
+        }
+    }
 }

@@ -10,6 +10,7 @@ import UIKit
 
 struct CurrencyViewModel {
     let imageFlagName: String
+    let isoCode: String
     let country: String
     let changeDescription: String
 }
@@ -77,8 +78,10 @@ class CurrencyTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             imageViewCityFlag.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             imageViewCityFlag.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            imageViewCityFlag.widthAnchor.constraint(equalToConstant: 200),
-            imageViewCityFlag.heightAnchor.constraint(equalToConstant: 100)
+            imageViewCityFlag.widthAnchor.constraint(equalToConstant: 80),
+            imageViewCityFlag.heightAnchor.constraint(equalToConstant: 40),
+            imageViewCityFlag.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            imageViewCityFlag.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
         ])
         
         NSLayoutConstraint.activate([

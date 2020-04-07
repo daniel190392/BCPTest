@@ -16,11 +16,13 @@ protocol TransactionBusinessLogic {
     func doLoadCurrencies(request: Transaction.CurrencyLoad.Request)
     func docChangeAmount(request: Transaction.AmountChange.Request)
     func doChangeCurrency(request: Transaction.CurrencyChange.Request)
+    func doLoadCurrencySelected(request: Transaction.CurrencySelected.Request)
 }
 
 protocol TransactionDataStore {
     var currencies: [Currency] { get set }
     var currencyToUpdate: Transaction.CurrencyChange.CurrencyOption? { get set }
+    var currencySelected: Currency? { get set }
 }
 
 class TransactionInteractor: TransactionBusinessLogic, TransactionDataStore {
@@ -29,6 +31,8 @@ class TransactionInteractor: TransactionBusinessLogic, TransactionDataStore {
     var worker: TransactionWorker? = TransactionWorker()
     var currencies = [Currency]()
     var currencyToUpdate: Transaction.CurrencyChange.CurrencyOption?
+    var currencySelected: Currency?
+    
     
     private let isoSoles = "PEN"
     private let isoDollar = "USD"
@@ -75,5 +79,24 @@ class TransactionInteractor: TransactionBusinessLogic, TransactionDataStore {
     
     func doChangeCurrency(request: Transaction.CurrencyChange.Request) {
         self.currencyToUpdate = request.option
+    }
+    
+    func doLoadCurrencySelected(request: Transaction.CurrencySelected.Request) {
+        guard let currencySelected = currencySelected, let currencyToUpdate = currencyToUpdate else {
+            return
+        }
+        
+        if currencyToUpdate == .source {
+            source = currencySelected
+        } else if  currencyToUpdate == .target {
+            target = currencySelected
+        }
+        self.currencySelected = nil
+        
+        guard let source = source , let target = target else {
+            return
+        }
+        let response = Transaction.CurrencyLoad.Response(source: source , target: target)
+        presenter?.presentLoaded(response: response)
     }
 }

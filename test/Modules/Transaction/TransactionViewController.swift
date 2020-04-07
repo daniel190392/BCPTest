@@ -74,6 +74,11 @@ class TransactionViewController: UIViewController, TransactionDisplayLogic {
         doLoadCurrencies()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        doLoadCurrencySelected()
+    }
+    
     // MARK: Do something
     
     //@IBOutlet weak var nameTextField: UITextField!
@@ -81,6 +86,11 @@ class TransactionViewController: UIViewController, TransactionDisplayLogic {
     func doLoadCurrencies() {
         let request = Transaction.CurrencyLoad.Request()
         interactor?.doLoadCurrencies(request: request)
+    }
+    
+    func doLoadCurrencySelected() {
+        let request = Transaction.CurrencySelected.Request()
+        interactor?.doLoadCurrencySelected(request: request)
     }
     
     func displayCurrencyLoaded(viewModel: Transaction.CurrencyLoad.ViewModel) {
@@ -94,8 +104,7 @@ class TransactionViewController: UIViewController, TransactionDisplayLogic {
 
 extension TransactionViewController: TransactionViewDelegate {
     func onAmountChange(amountValue: Double) {
-//        let request = Transaction.CurrencyToChange.Request(currencyValue: currencyValue)
-        let request = Transaction.AmountChange.Request(amountValue: 11)
+        let request = Transaction.AmountChange.Request(amountValue: amountValue)
         interactor?.docChangeAmount(request: request)
     }
     

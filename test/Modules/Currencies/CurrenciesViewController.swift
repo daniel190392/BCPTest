@@ -13,8 +13,8 @@
 import UIKit
 
 protocol CurrenciesDisplayLogic: class {
-    func displaySomething(viewModel: Currencies.Something.ViewModel)
     func displayCurrencies(viewModel: Currencies.LoadCurrency.ViewModel)
+    func displayCurrencySelectedIsSaved(viewModel: Currencies.CurrencySelected.ViewModel)
 }
 
 class CurrenciesViewController: UIViewController, CurrenciesDisplayLogic {
@@ -77,13 +77,13 @@ class CurrenciesViewController: UIViewController, CurrenciesDisplayLogic {
     
     // MARK: Do Display
     
-    func displaySomething(viewModel: Currencies.Something.ViewModel) {
-        //nameTextField.text = viewModel.name
-    }
-    
     func displayCurrencies(viewModel: Currencies.LoadCurrency.ViewModel) {
         currenciesViewModel = viewModel.currencies
         currenciesView.tableView.reloadData()
+    }
+    
+    func displayCurrencySelectedIsSaved(viewModel: Currencies.CurrencySelected.ViewModel) {
+        router?.routeToTransactionView()
     }
 }
 
@@ -107,5 +107,9 @@ extension CurrenciesViewController: UITableViewDataSource {
 }
 
 extension CurrenciesViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let currencySelected = currenciesViewModel[indexPath.row]
+        let request = Currencies.CurrencySelected.Request(isoCurrency: currencySelected.isoCode)
+        interactor?.doSaveTheCurrencySelected(request: request)
+    }
 }

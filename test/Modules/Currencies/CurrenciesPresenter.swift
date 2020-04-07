@@ -13,19 +13,15 @@
 import UIKit
 
 protocol CurrenciesPresentationLogic {
-    func presentSomething(response: Currencies.Something.Response)
     func presentCurrencies(response: Currencies.LoadCurrency.Response)
+    func presentCurrencySelectedSaved(response: Currencies.CurrencySelected.Response)
+    
 }
 
 class CurrenciesPresenter: CurrenciesPresentationLogic {
     weak var viewController: CurrenciesDisplayLogic?
     
     // MARK: Do something
-    
-    func presentSomething(response: Currencies.Something.Response) {
-        let viewModel = Currencies.Something.ViewModel()
-        viewController?.displaySomething(viewModel: viewModel)
-    }
     
     func presentCurrencies(response: Currencies.LoadCurrency.Response) {
         let currencies: [CurrencyViewModel] = response.currencies.map { (currency) -> CurrencyViewModel in
@@ -38,7 +34,12 @@ class CurrenciesPresenter: CurrenciesPresentationLogic {
     }
     
     private func parseToCellViewModel(currency: Currency) -> CurrencyViewModel {
-        let viewModel = CurrencyViewModel(imageFlagName: currency.iso.lowercased(), country: currency.country, changeDescription: "1 USD = \(currency.buyRate) \(currency.iso.uppercased())")
+        let viewModel = CurrencyViewModel(imageFlagName: currency.iso.lowercased(), isoCode: currency.iso, country: currency.country, changeDescription: "1 USD = \(currency.buyRate) \(currency.iso.uppercased())")
         return viewModel
+    }
+    
+    func presentCurrencySelectedSaved(response: Currencies.CurrencySelected.Response) {
+        let viewModel = Currencies.CurrencySelected.ViewModel()
+        viewController?.displayCurrencySelectedIsSaved(viewModel: viewModel)
     }
 }

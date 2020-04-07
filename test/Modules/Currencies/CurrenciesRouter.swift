@@ -13,7 +13,7 @@
 import UIKit
 
 @objc protocol CurrenciesRoutingLogic {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToTransactionView()
 }
 
 protocol CurrenciesDataPassing {
@@ -25,31 +25,26 @@ class CurrenciesRouter: NSObject, CurrenciesRoutingLogic, CurrenciesDataPassing 
   var dataStore: CurrenciesDataStore?
   
   // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: CurrenciesViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
+    
+    func routeToTransactionView() {
+        if let viewController = viewController {
+            let navCon = viewController.navigationController
+            let transactionViewController = navCon?.viewControllers.first(where: { (controller) -> Bool in
+                return controller is TransactionViewController
+            })
+            if let transactionViewController = transactionViewController as? TransactionViewController, var destinationStore = transactionViewController.router?.dataStore {
+                passDataToTransactionController(source: dataStore, destination: &destinationStore)
+            }
+            navCon?.popViewController(animated: true)
+        }
+    }
   
   // MARK: Passing data
   
+    func passDataToTransactionController(source: CurrenciesDataStore?, destination: inout TransactionDataStore) {
+        destination.currencySelected = source?.currencySelected
+    }
+    
   //func passDataToSomewhere(source: CurrenciesDataStore, destination: inout SomewhereDataStore)
   //{
   //  destination.name = source.name

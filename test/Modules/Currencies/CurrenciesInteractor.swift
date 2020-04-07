@@ -14,15 +14,18 @@ import UIKit
 
 protocol CurrenciesBusinessLogic {
     func doLoadCurrencies(request: Currencies.LoadCurrency.Request)
+    func doSaveTheCurrencySelected(request: Currencies.CurrencySelected.Request)
 }
 
 protocol CurrenciesDataStore {
     var currencies: [Currency]? { get set }
+    var currencySelected: Currency? { get set }
 }
 
 class CurrenciesInteractor: CurrenciesBusinessLogic, CurrenciesDataStore {
     var presenter: CurrenciesPresentationLogic?
     var currencies: [Currency]?
+    var currencySelected: Currency?
     
     func doLoadCurrencies(request: Currencies.LoadCurrency.Request) {
         guard let currencies = currencies else {
@@ -31,6 +34,14 @@ class CurrenciesInteractor: CurrenciesBusinessLogic, CurrenciesDataStore {
         
         let response = Currencies.LoadCurrency.Response(currencies: currencies)
         presenter?.presentCurrencies(response: response)
-        
     }
+    
+    func doSaveTheCurrencySelected(request: Currencies.CurrencySelected.Request) {
+        self.currencySelected = currencies?.first(where: { (currency) -> Bool in
+            return currency.iso == request.isoCurrency
+        })
+        let response = Currencies.CurrencySelected.Response()
+        presenter?.presentCurrencySelectedSaved(response: response)
+    }
+    
 }

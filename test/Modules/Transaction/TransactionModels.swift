@@ -48,6 +48,15 @@ enum Transaction {
         }
     }
     
+    enum CurrencySelected {
+        struct Request {
+        }
+        struct Response {
+        }
+        struct ViewModel {
+        }
+    }
+    
     enum Error {
         enum ErrorType {
             case notLoad
