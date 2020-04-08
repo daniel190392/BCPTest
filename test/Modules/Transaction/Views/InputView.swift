@@ -179,8 +179,10 @@ extension InputView: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.text?.isEmpty == true {
-            textField.text = "0.00"
+        var stringAmount = "0.000"
+        if textField.text?.isEmpty != true {
+            stringAmount = (Double(textField.text ?? "0") ?? 0).getMoneyValue()
         }
+        textField.text = stringAmount
     }
 }
