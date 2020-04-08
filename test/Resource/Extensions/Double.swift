@@ -18,7 +18,7 @@ extension Double {
     
     static func getNumberFormatter() -> NumberFormatter {
         let currencyFormatter = NumberFormatter()
-        currencyFormatter.usesGroupingSeparator = true
+        currencyFormatter.usesGroupingSeparator = false
         currencyFormatter.numberStyle = .decimal
         currencyFormatter.minimumFractionDigits = 3
         currencyFormatter.maximumFractionDigits = 3

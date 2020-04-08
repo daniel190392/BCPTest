@@ -35,15 +35,58 @@ class TransactionWorkerTests: XCTestCase {
         sut = TransactionWorker()
     }
     
-    // MARK: Test doubles
-    
-    // MARK: Tests
-    
-    func testSomething() {
-        // Given
+    // MARK: Test
+    func testSellCurrencyPrice() {
+        let from = Currency(currencyName: "Soles", country: "Peru", iso: "PEN", symbol: "S/", sellRate: 0.257088, buyRate: 0.297088)
+        let to = Currency(currencyName: "Dolar", country: "EEUU", iso: "USD", symbol: "$", sellRate: 1, buyRate: 1)
         
-        // When
+        let newAmount = sut?.sellCurrencyPrice(from: from, to: to).getMoneyValue() ?? "0.000"
         
-        // Then
+        XCTAssertEqual(newAmount, "3.366", "sellCurrencyPrice(from:, to:) should get the unit price convertion")
+    }
+    
+    func testBuyCurrencyPrice() {
+        let from = Currency(currencyName: "Soles", country: "Peru", iso: "PEN", symbol: "S/", sellRate: 0.257088, buyRate: 0.297088)
+        let to = Currency(currencyName: "Dolar", country: "EEUU", iso: "USD", symbol: "$", sellRate: 1, buyRate: 1)
+        
+        let newAmount = sut?.buyCurrencyPrice(from: from, to: to).getMoneyValue() ?? "0.000"
+        
+        XCTAssertEqual(newAmount, "3.890", "sellCurrencyPrice(from:, to:) should get the unit price convertion")
+    }
+    
+    func testConvertUSDtoPEN() {
+        let source = Currency(currencyName: "Dolar", country: "EEUU", iso: "USD", symbol: "$", sellRate: 1, buyRate: 1)
+        let target = Currency(currencyName: "Soles", country: "Peru", iso: "PEN", symbol: "S/", sellRate: 0.257088, buyRate: 0.297088)
+        
+        let newAmount = sut?.convertCurrency(target: target, source: source, amount: 10).getMoneyValue() ?? "0.000"
+        
+        XCTAssertEqual(newAmount, "33.660", "convertCurrency(target:, source:) should get the unit price convertion")
+    }
+    
+    func testConvertPENtoUSD() {
+        let source = Currency(currencyName: "Soles", country: "Peru", iso: "PEN", symbol: "S/", sellRate: 0.257088, buyRate: 0.297088)
+        let target = Currency(currencyName: "Dolar", country: "EEUU", iso: "USD", symbol: "$", sellRate: 1, buyRate: 1)
+        
+        let newAmount = sut?.convertCurrency(target: target, source: source, amount: 10).getMoneyValue() ?? "0.000"
+        
+        XCTAssertEqual(newAmount, "2.571", "convertCurrency(target:, source:) should get the unit price convertion")
+    }
+    
+    func testConvertEURtoJPY() {
+        let source = Currency(currencyName: "EURO", country: "Union Europea", iso: "EUR", symbol: "€", sellRate: 1.08929, buyRate: 1.07929)
+        let target = Currency(currencyName: "YEN", country: "JAPON", iso: "JPY", symbol: "¥", sellRate: 0.00859261, buyRate: 0.00919238)
+        
+        let newAmount = sut?.convertCurrency(target: target, source: source, amount: 2).getMoneyValue() ?? "0.000"
+        
+        XCTAssertEqual(newAmount, "236.998", "convertCurrency(target:, source:) should get the unit price convertion")
+    }
+    
+    func testConvertJPYtoPEN() {
+        let source = Currency(currencyName: "YEN", country: "JAPON", iso: "JPY", symbol: "¥", sellRate: 0.00859261, buyRate: 0.00919238)
+        let target = Currency(currencyName: "Soles", country: "Peru", iso: "PEN", symbol: "S/", sellRate: 0.257088, buyRate: 0.297088)
+        
+        let newAmount = sut?.convertCurrency(target: target, source: source, amount: 100).getMoneyValue() ?? "0.000"
+        
+        XCTAssertEqual(newAmount, "2.892", "convertCurrency(target:, source:) should get the unit price convertion")
     }
 }

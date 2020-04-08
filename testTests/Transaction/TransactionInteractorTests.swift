@@ -177,7 +177,7 @@ class TransactionInteractorTests: XCTestCase {
         let request = Transaction.CurrencyLoad.Request()
         sut?.doLoadCurrencies(request:request)
         
-        XCTAssertEqual(sut?.currencies.count, 4, "doGetConversionRate(request:) should get the the currencies list with 4 elements")
+        XCTAssertEqual(sut?.currencies.count, 4, "doGetConversionRate(request:) should get the currencies list with 4 elements")
     }
     
     func testLoadCurrenciesWhenIsEmpty() {
@@ -188,7 +188,7 @@ class TransactionInteractorTests: XCTestCase {
         let request = Transaction.CurrencyLoad.Request()
         sut?.doLoadCurrencies(request:request)
         
-        XCTAssertEqual(sut?.currencies.count, 0, "doGetConversionRate(request:) should get the the currencies list with 0 elements")
+        XCTAssertEqual(sut?.currencies.count, 0, "doGetConversionRate(request:) should get the currencies list with 0 elements")
     }
     
     func testLoadCurrenciesWhenDefaultsCurrenciesAreAussent() {

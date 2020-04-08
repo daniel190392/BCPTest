@@ -11,8 +11,9 @@ import UIKit
 struct TransactionViewModel {
     let sourceInput: InputViewModel
     let targetInput: InputViewModel
-    let buyRate: String
-    let sellRate: String
+    let currentRate: String
+//    let buyRate: String
+//    let sellRate: String
 }
 
 protocol TransactionViewDelegate: class {
@@ -166,7 +167,7 @@ class TransactionView: UIView {
         let currencyValue = sourceInput.getCurrencyValue(symbol: viewModel.sourceInput.symbol)
         sourceInput.setupView(viewModel: viewModel.sourceInput)
         targetInput.setupView(viewModel: viewModel.targetInput)
-        labelCurrentRate.text = "Compra: \(viewModel.buyRate) | Venta: \(viewModel.sellRate)"
+        labelCurrentRate.text = viewModel.currentRate
         sourceInput.updateCurrencyValue(currencyValue: currencyValue.getMoneyValue())
         onAmountChange(amountValue: currencyValue)
     }

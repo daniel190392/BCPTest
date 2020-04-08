@@ -12,7 +12,15 @@
 
 import UIKit
 
-class TransactionWorker {
+protocol TransactionWorkerInterface: class {
+    func doGetConversionRate(completionHandler:(Data?) -> Void)
+    func doParseConversionRates(data: Data) -> [Currency]
+    func convertCurrency(target: Currency, source: Currency, amount: Double) -> Double
+    func sellCurrencyPrice(from: Currency, to: Currency) -> Double
+    func buyCurrencyPrice(from: Currency, to: Currency) -> Double
+}
+
+class TransactionWorker: TransactionWorkerInterface {
     
     func doGetConversionRate(completionHandler:(Data?) -> Void) {
         guard let path = Bundle.main.path(forResource: "moneydata", ofType: "json") else {
@@ -24,5 +32,18 @@ class TransactionWorker {
     
     func doParseConversionRates(data: Data) -> [Currency] {
         return (try? JSONDecoder().decode([Currency].self, from: data)) ?? []
+    }
+    
+    func convertCurrency(target: Currency, source: Currency, amount: Double) -> Double {
+        let dollarAmount = source.sellRate * amount
+        return dollarAmount / target.buyRate
+    }
+    
+    func sellCurrencyPrice(from: Currency, to: Currency) -> Double {
+        return to.sellRate / from.buyRate
+    }
+
+    func buyCurrencyPrice(from: Currency, to: Currency) -> Double {
+        return to.buyRate / from.sellRate
     }
 }

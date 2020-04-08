@@ -29,7 +29,7 @@ protocol TransactionDataStore {
 class TransactionInteractor: TransactionBusinessLogic, TransactionDataStore {
     
     var presenter: TransactionPresentationLogic?
-    var worker: TransactionWorker? = TransactionWorker()
+    var worker: TransactionWorkerInterface = TransactionWorker()
     var currencies = [Currency]()
     var currencyToUpdate: Transaction.CurrencyChange.CurrencyOption?
     var currencySelected: Currency?
@@ -41,34 +41,15 @@ class TransactionInteractor: TransactionBusinessLogic, TransactionDataStore {
     private var target: Currency? = nil
     
     func doLoadCurrencies(request: Transaction.CurrencyLoad.Request) {
-        worker?.doGetConversionRate(completionHandler: {[weak self] (data) in
+        worker.doGetConversionRate(completionHandler: {[weak self] (data) in
             guard let data = data, let welf = self else {
                 let response = Transaction.Error.Response(errorType: .notLoad)
                 presenter?.presentErrorMessage(response: response)
                 return
             }
-            welf.currencies = welf.worker?.doParseConversionRates(data: data) ?? []
+            welf.currencies = welf.worker.doParseConversionRates(data: data)
             validateCurrencies()
         })
-    }
-    
-    private func validateCurrencies() {
-        guard let source = getCurrencyByIso(currencies: currencies, iso: isoSoles), let target = getCurrencyByIso(currencies: currencies, iso: isoDollar) else {
-            let response = Transaction.Error.Response(errorType: .noLocalCurrency)
-            presenter?.presentErrorMessage(response: response)
-            return
-        }
-        
-        self.source = source
-        self.target = target
-        let response = updateCurrencyBuyAndSale(target: target, source: source)
-        presenter?.presentLoaded(response: response)
-    }
-    
-    private func getCurrencyByIso(currencies: [Currency], iso: String) -> Currency? {
-        return currencies.first { (currency) -> Bool in
-            return currency.iso == iso
-        }
     }
     
     func docChangeAmount(request: Transaction.AmountChange.Request) {
@@ -78,30 +59,9 @@ class TransactionInteractor: TransactionBusinessLogic, TransactionDataStore {
             return
         }
         
-        let newAmount = convertCurrency(target: target, source: source, currencyValue: currencyValue)
+        let newAmount = worker.convertCurrency(target: target, source: source, amount: currencyValue)
         let response = Transaction.AmountChange.Response(amountChanged: newAmount)
         presenter?.presentAccountChanged(response: response)
-    }
-    
-    private func convertCurrency(target: Currency, source: Currency, currencyValue: Double) -> Double {
-        let dollarAmount = source.sellRate * currencyValue
-        return dollarAmount / target.buyRate
-    }
-    
-    private func sellCurrencyPrice(convertionCurrency: Currency, unitPriceCurrency: Currency, currencyValue: Double) -> Double {
-        let dollarAmount = unitPriceCurrency.sellRate * currencyValue
-        return dollarAmount / convertionCurrency.buyRate
-    }
-    
-    private func buyCurrencyPrice(convertionCurrency: Currency, unitPriceCurrency: Currency, currencyValue: Double) -> Double {
-        let dollarAmount = unitPriceCurrency.buyRate * currencyValue
-        return dollarAmount / convertionCurrency.sellRate
-    }
-    
-    private func updateCurrencyBuyAndSale(target: Currency, source: Currency) -> Transaction.CurrencyLoad.Response {
-        let sellRate = buyCurrencyPrice(convertionCurrency: source, unitPriceCurrency: target, currencyValue: 1)
-        let buyRate = sellCurrencyPrice(convertionCurrency: source, unitPriceCurrency: target, currencyValue: 1)
-        return Transaction.CurrencyLoad.Response(source: source , target: target, buyRate: buyRate, sellRate: sellRate)
     }
     
     func doChangeCurrency(request: Transaction.CurrencyChange.Request) {
@@ -145,5 +105,30 @@ class TransactionInteractor: TransactionBusinessLogic, TransactionDataStore {
         
         let response = updateCurrencyBuyAndSale(target: source, source: target)
         presenter?.presentLoaded(response: response)
+    }
+    
+    private func validateCurrencies() {
+        guard let source = getCurrencyByIso(currencies: currencies, iso: isoSoles), let target = getCurrencyByIso(currencies: currencies, iso: isoDollar) else {
+            let response = Transaction.Error.Response(errorType: .noLocalCurrency)
+            presenter?.presentErrorMessage(response: response)
+            return
+        }
+        
+        self.source = source
+        self.target = target
+        let response = updateCurrencyBuyAndSale(target: target, source: source)
+        presenter?.presentLoaded(response: response)
+    }
+    
+    private func getCurrencyByIso(currencies: [Currency], iso: String) -> Currency? {
+        return currencies.first { (currency) -> Bool in
+            return currency.iso == iso
+        }
+    }
+    
+    private func updateCurrencyBuyAndSale(target: Currency, source: Currency) -> Transaction.CurrencyLoad.Response {
+        let sellRate = worker.buyCurrencyPrice(from: source, to: target)
+        let buyRate = worker.sellCurrencyPrice(from: source, to: target)
+        return Transaction.CurrencyLoad.Response(source: source , target: target, buyRate: buyRate, sellRate: sellRate)
     }
 }

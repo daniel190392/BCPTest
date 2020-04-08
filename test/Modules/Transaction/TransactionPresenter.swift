@@ -26,7 +26,9 @@ class TransactionPresenter: TransactionPresentationLogic {
         let target = response.target
         let sourceInput = InputViewModel(optionType: .source, currencyName: source.currencyName, symbol: source.symbol)
         let targetInput = InputViewModel(optionType: .target, currencyName: target.currencyName, symbol: target.symbol)
-        let transactionViewModel = TransactionViewModel(sourceInput: sourceInput, targetInput: targetInput, buyRate: response.buyRate.getMoneyValue(), sellRate: response.sellRate.getMoneyValue())
+        let currentRate = "Compra: \(source.symbol) \(response.buyRate.getMoneyValue()) | Venta: \(source.symbol) \(response.sellRate.getMoneyValue())"
+        
+        let transactionViewModel = TransactionViewModel(sourceInput: sourceInput, targetInput: targetInput, currentRate: currentRate)
         let viewModel = Transaction.CurrencyLoad.ViewModel(transactionViewModel: transactionViewModel)
         viewController?.displayCurrencyLoaded(viewModel: viewModel)
     }
