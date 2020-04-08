@@ -10,7 +10,7 @@ import UIKit
 
 struct InputViewModel {
     let optionType: Transaction.CurrencyChange.CurrencyOption
-    let currencyValue: Double = 0.0
+    let currencyValue: Double = 0
     let currencyName: String
     let symbol: String
 }
@@ -108,7 +108,7 @@ class InputView: UIView {
     
     func setupView(viewModel: InputViewModel) {
         self.viewModel = viewModel
-        labelButton.text = viewModel.currencyName
+        labelButton.text = viewModel.currencyName.uppercased()
         
         switch viewModel.optionType {
         case .source:
@@ -150,6 +150,14 @@ class InputView: UIView {
         }
         let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
         delegate.onKeyboardSizeChange(keyboardheight: endFrame?.size.height ?? 0)
+    }
+    
+    func getCurrencyValue(symbol: String) -> Double {
+        guard let currencyValue = textFieldAmount.text else {
+            return 0
+        }
+        let value = currencyValue.replacingOccurrences(of: symbol, with: "").trimmingCharacters(in: .whitespaces)
+        return Double(value) ?? 0
     }
 }
 

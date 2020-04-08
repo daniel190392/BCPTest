@@ -163,9 +163,12 @@ class TransactionView: UIView {
     }
     
     func setupView(viewModel: TransactionViewModel) {
+        let currencyValue = sourceInput.getCurrencyValue(symbol: viewModel.sourceInput.symbol)
         sourceInput.setupView(viewModel: viewModel.sourceInput)
         targetInput.setupView(viewModel: viewModel.targetInput)
         labelCurrentRate.text = "Compra: \(viewModel.buyRate) | Venta: \(viewModel.sellRate)"
+        sourceInput.updateCurrencyValue(currencyValue: currencyValue.getMoneyValue())
+        onAmountChange(amountValue: currencyValue)
     }
     
     func setCurrencyChanged(viewModel: Transaction.AmountChange.ViewModel) {
