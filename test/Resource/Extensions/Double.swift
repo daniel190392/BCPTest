@@ -20,8 +20,8 @@ extension Double {
         let currencyFormatter = NumberFormatter()
         currencyFormatter.usesGroupingSeparator = true
         currencyFormatter.numberStyle = .decimal
-        currencyFormatter.minimumFractionDigits = 2
-        currencyFormatter.maximumFractionDigits = 2
+        currencyFormatter.minimumFractionDigits = 3
+        currencyFormatter.maximumFractionDigits = 3
         return currencyFormatter
     }
 }

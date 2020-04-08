@@ -19,6 +19,8 @@ enum Transaction {
         struct Response {
             let source: Currency
             let target: Currency
+            let buyRate: Double
+            let sellRate: Double
         }
         struct ViewModel {
             let transactionViewModel: TransactionViewModel
@@ -57,12 +59,20 @@ enum Transaction {
         }
     }
     
+    enum ExchanceCurrencies {
+        struct Request {
+        }
+        struct Response {
+        }
+        struct ViewModel {
+        }
+    }
+    
     enum Error {
         enum ErrorType {
             case notLoad
             case emptyCurrency
             case noLocalCurrency
-            case notDollarCurrency
         }
         struct Response {
             let errorType: ErrorType

@@ -15,6 +15,7 @@ import UIKit
 protocol TransactionDisplayLogic: class {
     func displayCurrencyLoaded(viewModel: Transaction.CurrencyLoad.ViewModel)
     func displayAccountChanged(viewModel: Transaction.AmountChange.ViewModel)
+    func displayErrorView(viewModel: Transaction.Error.ViewModel)
 }
 
 class TransactionViewController: UIViewController, TransactionDisplayLogic {
@@ -100,9 +101,18 @@ class TransactionViewController: UIViewController, TransactionDisplayLogic {
     func displayAccountChanged(viewModel: Transaction.AmountChange.ViewModel) {
         transactionView.setCurrencyChanged(viewModel: viewModel)
     }
+    
+    func displayErrorView(viewModel: Transaction.Error.ViewModel) {
+        router?.routeToError(errorMessage: viewModel.message)
+    }
 }
 
 extension TransactionViewController: TransactionViewDelegate {
+    func onExchangeCurrencies() {
+        let request = Transaction.ExchanceCurrencies.Request()
+        interactor?.doLoadExchangeCurrencies(request: request)
+    }
+    
     func onAmountChange(amountValue: Double) {
         let request = Transaction.AmountChange.Request(amountValue: amountValue)
         interactor?.docChangeAmount(request: request)

@@ -18,6 +18,7 @@ struct InputViewModel {
 protocol TransactionOptionDelegate: class {
     func onAmountChange(amountValue: Double)
     func onCurrencyUpdate(option: Transaction.CurrencyChange.CurrencyOption)
+    func onKeyboardSizeChange(keyboardheight: CGFloat)
 }
 
 class InputView: UIView {
@@ -46,6 +47,12 @@ class InputView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        if let viewModel = viewModel, viewModel.optionType == .source {
+            NotificationCenter.default.removeObserver(self)
+        }
     }
     
     private func setupComponents() {
@@ -106,9 +113,8 @@ class InputView: UIView {
         switch viewModel.optionType {
         case .source:
             labelTitle.text = ViewTraits.labelSource
-            if let text = textFieldAmount.text, text.isEmpty {
-                textFieldAmount.text = viewModel.currencyValue.getMoneyValue(symbol: viewModel.symbol)
-            }
+            textFieldAmount.text = viewModel.currencyValue.getMoneyValue()
+            enabledNotificationCenter()
         case .target:
             labelTitle.text = ViewTraits.labelTarget
             textFieldAmount.isEnabled = false
@@ -120,11 +126,30 @@ class InputView: UIView {
         textFieldAmount.text = currencyValue
     }
     
+    func resigTextFieldResponder() {
+        textFieldAmount.resignFirstResponder()
+    }
+    
+    private func enabledNotificationCenter() {
+        NotificationCenter.default.addObserver(self,
+        selector: #selector(self.keyboardNotification(notification:)),
+        name: UIResponder.keyboardWillShowNotification,
+        object: nil)
+    }
+    
     @objc private func onButtonClick(sender: UILongPressGestureRecognizer) {
         guard let delegate = delegate, let viewModel = viewModel, sender.state == .began else {
             return
         }
         delegate.onCurrencyUpdate(option: viewModel.optionType)
+    }
+    
+    @objc private func keyboardNotification(notification: NSNotification) {
+        guard let userInfo = notification.userInfo, let delegate = delegate else {
+            return
+        }
+        let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        delegate.onKeyboardSizeChange(keyboardheight: endFrame?.size.height ?? 0)
     }
 }
 

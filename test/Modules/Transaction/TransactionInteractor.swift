@@ -17,6 +17,7 @@ protocol TransactionBusinessLogic {
     func docChangeAmount(request: Transaction.AmountChange.Request)
     func doChangeCurrency(request: Transaction.CurrencyChange.Request)
     func doLoadCurrencySelected(request: Transaction.CurrencySelected.Request)
+    func doLoadExchangeCurrencies(request: Transaction.ExchanceCurrencies.Request)
 }
 
 protocol TransactionDataStore {
@@ -42,7 +43,8 @@ class TransactionInteractor: TransactionBusinessLogic, TransactionDataStore {
     func doLoadCurrencies(request: Transaction.CurrencyLoad.Request) {
         worker?.doGetConversionRate(completionHandler: {[weak self] (data) in
             guard let data = data, let welf = self else {
-                //LLAMAR PRESENTER ERROR
+                let response = Transaction.Error.Response(errorType: .notLoad)
+                presenter?.presentErrorMessage(response: response)
                 return
             }
             welf.currencies = welf.worker?.doParseConversionRates(data: data) ?? []
@@ -52,12 +54,14 @@ class TransactionInteractor: TransactionBusinessLogic, TransactionDataStore {
     
     private func validateCurrencies() {
         guard let source = getCurrencyByIso(currencies: currencies, iso: isoSoles), let target = getCurrencyByIso(currencies: currencies, iso: isoDollar) else {
-            //LLAMAR PRESENTER ERROR
+            let response = Transaction.Error.Response(errorType: .noLocalCurrency)
+            presenter?.presentErrorMessage(response: response)
             return
         }
+        
         self.source = source
         self.target = target
-        let response = Transaction.CurrencyLoad.Response(source: source, target: target)
+        let response = updateCurrencyBuyAndSale(target: target, source: source)
         presenter?.presentLoaded(response: response)
     }
     
@@ -69,12 +73,35 @@ class TransactionInteractor: TransactionBusinessLogic, TransactionDataStore {
     
     func docChangeAmount(request: Transaction.AmountChange.Request) {
         guard let target = target, let source = source, let currencyValue = request.amountValue else {
+            let response = Transaction.Error.Response(errorType: .emptyCurrency)
+            presenter?.presentErrorMessage(response: response)
             return
         }
-        let dollarAmount = source.buyRate * currencyValue
-        let newAmount = target.sellRate * dollarAmount
+        
+        let newAmount = convertCurrency(target: target, source: source, currencyValue: currencyValue)
         let response = Transaction.AmountChange.Response(amountChanged: newAmount)
         presenter?.presentAccountChanged(response: response)
+    }
+    
+    private func convertCurrency(target: Currency, source: Currency, currencyValue: Double) -> Double {
+        let dollarAmount = source.sellRate * currencyValue
+        return dollarAmount / target.buyRate
+    }
+    
+    private func sellCurrencyPrice(convertionCurrency: Currency, unitPriceCurrency: Currency, currencyValue: Double) -> Double {
+        let dollarAmount = unitPriceCurrency.sellRate * currencyValue
+        return dollarAmount / convertionCurrency.buyRate
+    }
+    
+    private func buyCurrencyPrice(convertionCurrency: Currency, unitPriceCurrency: Currency, currencyValue: Double) -> Double {
+        let dollarAmount = unitPriceCurrency.buyRate * currencyValue
+        return dollarAmount / convertionCurrency.sellRate
+    }
+    
+    private func updateCurrencyBuyAndSale(target: Currency, source: Currency) -> Transaction.CurrencyLoad.Response {
+        let sellRate = buyCurrencyPrice(convertionCurrency: source, unitPriceCurrency: target, currencyValue: 1)
+        let buyRate = sellCurrencyPrice(convertionCurrency: source, unitPriceCurrency: target, currencyValue: 1)
+        return Transaction.CurrencyLoad.Response(source: source , target: target, buyRate: buyRate, sellRate: sellRate)
     }
     
     func doChangeCurrency(request: Transaction.CurrencyChange.Request) {
@@ -87,16 +114,36 @@ class TransactionInteractor: TransactionBusinessLogic, TransactionDataStore {
         }
         
         if currencyToUpdate == .source {
+            target = currencySelected.iso == target?.iso ? source : target
             source = currencySelected
         } else if  currencyToUpdate == .target {
+            source = currencySelected.iso == source?.iso ? target : source
             target = currencySelected
         }
+        
         self.currencySelected = nil
         
         guard let source = source , let target = target else {
+            let response = Transaction.Error.Response(errorType: .emptyCurrency)
+            presenter?.presentErrorMessage(response: response)
             return
         }
-        let response = Transaction.CurrencyLoad.Response(source: source , target: target)
+        
+        let response = updateCurrencyBuyAndSale(target: target, source: source)
+        presenter?.presentLoaded(response: response)
+    }
+    
+    func doLoadExchangeCurrencies(request: Transaction.ExchanceCurrencies.Request) {
+        guard let target = target, let source = source else {
+            let response = Transaction.Error.Response(errorType: .emptyCurrency)
+            presenter?.presentErrorMessage(response: response)
+            return
+        }
+        
+        self.source = target
+        self.target = source
+        
+        let response = updateCurrencyBuyAndSale(target: source, source: target)
         presenter?.presentLoaded(response: response)
     }
 }

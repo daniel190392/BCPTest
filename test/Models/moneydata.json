@@ -12,25 +12,23 @@
         "country": "Peru",
         "iso": "PEN",
         "symbol": "S/",
-        "sellRate": 2,
-        "buyRate": 3
+        "sellRate": 0.257088,
+        "buyRate": 0.297088
     },
     {
         "currencyName": "EURO",
         "country": "Union Europea",
         "iso": "EUR",
         "symbol": "€",
-        "sellRate": 4,
-        "buyRate": 5
+        "sellRate": 1.08929,
+        "buyRate": 1.07929
     },
     {
         "currencyName": "YEN",
         "country": "JAPON",
         "iso": "JPY",
         "symbol": "¥",
-        "sellRate": 6,
-        "buyRate": 7
+        "sellRate": 0.00859261,
+        "buyRate": 0.00919238
     }
 ]
-
-

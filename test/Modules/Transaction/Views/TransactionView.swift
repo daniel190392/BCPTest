@@ -18,6 +18,7 @@ struct TransactionViewModel {
 protocol TransactionViewDelegate: class {
     func onAmountChange(amountValue: Double)
     func onCurrencyUpdate(option: Transaction.CurrencyChange.CurrencyOption)
+    func onExchangeCurrencies()
 }
 
 class TransactionView: UIView {
@@ -30,6 +31,10 @@ class TransactionView: UIView {
     private var separatorView = UIView()
     private var labelCurrentRate = UILabel()
     private var buttonTransaction = UIButton()
+    private var viewExchangeCurrencies = UIView()
+    private var imageViewExchange = UIImageView()
+    
+    private var constraintCenterYCurrencyChange = NSLayoutConstraint()
     
     weak var delegate: TransactionViewDelegate?
     
@@ -51,6 +56,8 @@ class TransactionView: UIView {
     
     private func setupComponents() {
         backgroundColor = .white
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        addGestureRecognizer(tapGesture)
         
         imageViewLogo.image = UIImage(named: "BCP")
         imageViewLogo.contentMode = .scaleAspectFit
@@ -77,6 +84,15 @@ class TransactionView: UIView {
         separatorView.backgroundColor = .b_gray
         borderView.addSubViewWithLayout(view: separatorView)
         
+        let tapGestureExchange = UITapGestureRecognizer(target: self, action: #selector(onExchangeCurrencies))
+        viewExchangeCurrencies.backgroundColor = .b_white
+        viewExchangeCurrencies.addGestureRecognizer(tapGestureExchange)
+        viewExchangeCurrencies.layer.cornerRadius = 20
+        borderView.addSubViewWithLayout(view: viewExchangeCurrencies)
+        
+        imageViewExchange.contentMode = .scaleAspectFit
+        imageViewExchange.image = UIImage(named: "exchange")
+        viewExchangeCurrencies.addSubViewWithLayout(view: imageViewExchange)
         
         labelCurrentRate.textAlignment = .center
         labelCurrentRate.font = UIFont.regular16
@@ -96,10 +112,12 @@ class TransactionView: UIView {
             imageViewLogo.heightAnchor.constraint(equalToConstant: 100)
         ])
         
+        
+        constraintCenterYCurrencyChange = borderView.centerYAnchor.constraint(equalTo: centerYAnchor)
         NSLayoutConstraint.activate([
             borderView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             borderView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            borderView.topAnchor.constraint(equalTo: imageViewLogo.bottomAnchor, constant: ViewTraits.verticalMargin)
+            constraintCenterYCurrencyChange
         ])
         
         NSLayoutConstraint.activate([
@@ -114,6 +132,20 @@ class TransactionView: UIView {
             separatorView.trailingAnchor.constraint(equalTo: borderView.trailingAnchor),
             separatorView.centerYAnchor.constraint(equalTo: borderView.centerYAnchor),
             separatorView.heightAnchor.constraint(equalToConstant: 1)
+        ])
+        
+        NSLayoutConstraint.activate([
+            viewExchangeCurrencies.trailingAnchor.constraint(equalTo: borderView.trailingAnchor, constant: -24),
+            viewExchangeCurrencies.centerYAnchor.constraint(equalTo: borderView.centerYAnchor),
+            viewExchangeCurrencies.widthAnchor.constraint(equalToConstant: 40),
+            viewExchangeCurrencies.heightAnchor.constraint(equalToConstant: 40),
+        ])
+        
+        NSLayoutConstraint.activate([
+            imageViewExchange.leadingAnchor.constraint(equalTo: viewExchangeCurrencies.leadingAnchor),
+            imageViewExchange.trailingAnchor.constraint(equalTo: viewExchangeCurrencies.trailingAnchor),
+            imageViewExchange.topAnchor.constraint(equalTo: viewExchangeCurrencies.topAnchor),
+            imageViewExchange.bottomAnchor.constraint(equalTo: viewExchangeCurrencies.bottomAnchor),
         ])
         
         NSLayoutConstraint.activate([
@@ -139,6 +171,21 @@ class TransactionView: UIView {
     func setCurrencyChanged(viewModel: Transaction.AmountChange.ViewModel) {
         targetInput.updateCurrencyValue(currencyValue: viewModel.amountChanged)
     }
+    
+    @objc private func hideKeyboard() {
+        sourceInput.resigTextFieldResponder()
+        constraintCenterYCurrencyChange.constant = 0
+        UIView.animate(withDuration: 0.5) { [weak self] in
+          self?.layoutIfNeeded()
+        }
+    }
+    
+    @objc private func onExchangeCurrencies() {
+        guard let delegate = delegate else {
+            return
+        }
+        delegate.onExchangeCurrencies()
+    }
 }
 
 extension TransactionView: TransactionOptionDelegate {
@@ -154,5 +201,12 @@ extension TransactionView: TransactionOptionDelegate {
             return
         }
         delegate.onCurrencyUpdate(option: option)
+    }
+    
+    func onKeyboardSizeChange(keyboardheight: CGFloat) {
+        constraintCenterYCurrencyChange.constant = -(keyboardheight / 3)
+        UIView.animate(withDuration: 0.5) { [weak self] in
+          self?.layoutIfNeeded()
+        }
     }
 }

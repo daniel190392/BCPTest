@@ -14,6 +14,7 @@ import UIKit
 
 @objc protocol TransactionRoutingLogic {
     func routeToCurrenciesView()
+    func routeToError(errorMessage: String)
 }
 
 protocol TransactionDataPassing {
@@ -33,6 +34,12 @@ class TransactionRouter: NSObject, TransactionRoutingLogic, TransactionDataPassi
             }
             navCon?.pushViewController(currenciesViewController, animated: true)
         }
+    }
+    
+    func routeToError(errorMessage: String) {
+        let alertView = UIAlertController(title: "Ups", message: errorMessage, preferredStyle: .alert)
+        alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        viewController?.present(alertView, animated: true)
     }
     
     // MARK: Passing data
