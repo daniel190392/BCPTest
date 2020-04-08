@@ -18,6 +18,8 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BCP" translatesAutoresizingMaskIntoConstraints="NO" id="Vc6-bh-ssz">
                                 <rect key="frame" x="30" y="219" width="260" height="130"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Vc6-bh-ssz" secondAttribute="height" multiplier="2:1" id="Gn0-XR-kHA"/>
                                     <constraint firstAttribute="height" constant="130" id="HEg-9W-520"/>
@@ -38,6 +40,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BCP" width="266" height="81"/>
+        <image name="BCP" width="800" height="500"/>
     </resources>
 </document>

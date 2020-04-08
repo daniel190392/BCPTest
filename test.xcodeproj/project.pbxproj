@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A829877243D7CFE008E40B0 /* TransactionViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A829873243D7CFE008E40B0 /* TransactionViewControllerTests.swift */; };
+		8A829878243D7CFE008E40B0 /* TransactionInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A829874243D7CFE008E40B0 /* TransactionInteractorTests.swift */; };
+		8A829879243D7CFE008E40B0 /* TransactionWorkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A829875243D7CFE008E40B0 /* TransactionWorkerTests.swift */; };
+		8A82987A243D7CFE008E40B0 /* TransactionPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A829876243D7CFE008E40B0 /* TransactionPresenterTests.swift */; };
 		8AA6FA2B243BE8C9001CC640 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA6FA2A243BE8C9001CC640 /* AppDelegate.swift */; };
 		8AA6FA34243BE8CC001CC640 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA6FA33243BE8CC001CC640 /* Assets.xcassets */; };
 		8AA6FA37243BE8CC001CC640 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AA6FA35243BE8CC001CC640 /* LaunchScreen.storyboard */; };
@@ -70,6 +74,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8A829873243D7CFE008E40B0 /* TransactionViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewControllerTests.swift; sourceTree = "<group>"; };
+		8A829874243D7CFE008E40B0 /* TransactionInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionInteractorTests.swift; sourceTree = "<group>"; };
+		8A829875243D7CFE008E40B0 /* TransactionWorkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionWorkerTests.swift; sourceTree = "<group>"; };
+		8A829876243D7CFE008E40B0 /* TransactionPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionPresenterTests.swift; sourceTree = "<group>"; };
 		8AA6FA27243BE8C9001CC640 /* test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AA6FA2A243BE8C9001CC640 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AA6FA33243BE8CC001CC640 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -132,6 +140,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A82987B243D7D07008E40B0 /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				8A829873243D7CFE008E40B0 /* TransactionViewControllerTests.swift */,
+				8A829874243D7CFE008E40B0 /* TransactionInteractorTests.swift */,
+				8A829875243D7CFE008E40B0 /* TransactionWorkerTests.swift */,
+				8A829876243D7CFE008E40B0 /* TransactionPresenterTests.swift */,
+			);
+			path = Transaction;
+			sourceTree = "<group>";
+		};
 		8AA6FA1E243BE8C9001CC640 = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +189,7 @@
 		8AA6FA40243BE8CC001CC640 /* testTests */ = {
 			isa = PBXGroup;
 			children = (
+				8A82987B243D7D07008E40B0 /* Transaction */,
 				8AA6FA41243BE8CC001CC640 /* testTests.swift */,
 				8AA6FA43243BE8CC001CC640 /* Info.plist */,
 			);
@@ -461,6 +481,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AA6FA42243BE8CC001CC640 /* testTests.swift in Sources */,
+				8A829878243D7CFE008E40B0 /* TransactionInteractorTests.swift in Sources */,
+				8A82987A243D7CFE008E40B0 /* TransactionPresenterTests.swift in Sources */,
+				8A829879243D7CFE008E40B0 /* TransactionWorkerTests.swift in Sources */,
+				8A829877243D7CFE008E40B0 /* TransactionViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
