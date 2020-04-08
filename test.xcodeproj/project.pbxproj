@@ -16,8 +16,6 @@
 		8AA6FA37243BE8CC001CC640 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AA6FA35243BE8CC001CC640 /* LaunchScreen.storyboard */; };
 		8AA6FA42243BE8CC001CC640 /* testTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA6FA41243BE8CC001CC640 /* testTests.swift */; };
 		8AA6FA4D243BE8CC001CC640 /* testUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA6FA4C243BE8CC001CC640 /* testUITests.swift */; };
-		8AD32A9F243C23FE001CD087 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD32A9E243C23FD001CD087 /* Realm.framework */; };
-		8AD32AA0243C23FE001CD087 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD32A9E243C23FD001CD087 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8AD32AA9243C2C44001CD087 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AA8243C2C44001CD087 /* UIView.swift */; };
 		8AD32AAB243C2C4D001CD087 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AAA243C2C4D001CD087 /* UIFont.swift */; };
 		8AD32AAD243C2C97001CD087 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD32AAC243C2C97001CD087 /* UIViewController.swift */; };
@@ -66,7 +64,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8AD32AA0243C23FE001CD087 /* Realm.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -119,7 +116,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8AD32A9F243C23FE001CD087 /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,7 +303,6 @@
 				8AA6FA24243BE8C9001CC640 /* Frameworks */,
 				8AA6FA25243BE8C9001CC640 /* Resources */,
 				8AD32AA1243C23FE001CD087 /* Embed Frameworks */,
-				8AD32AA2243C2435001CD087 /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -423,28 +418,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		8AD32AA2243C2435001CD087 /* Carthage */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
-			);
-			name = Carthage;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8AA6FA23243BE8C9001CC640 /* Sources */ = {
